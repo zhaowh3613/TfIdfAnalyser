@@ -1,0 +1,2 @@
+The first study looked at hospitalizations and emergency room and urgent care center visits in 10 states in the U.S. from August 2021 to this month.
+It found vaccine effectiveness was best after three doses of the Pfizer-BioNTech or Moderna vaccines in preventing COVID-19-associated emergency department and urgent care visits. Protection dropped from 94 percent during the Delta wave to 82 percent during the Omicron wave. Protection from just two doses was lower, especially if six months had passed since the second dose.

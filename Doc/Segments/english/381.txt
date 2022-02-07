@@ -1,0 +1,4 @@
+38
+No need to get smart about sorting
+Trash cans using a facial recognition system have been launched in some communities in Beijing and Zhejiang province raising concerns that the technology is being overused.
+The lids of the trash cans can be opened after the system identifies the users as being registered residents of the communities. The promoters claim that the "smart" trash cans will prompt the people to strictly abide by the domestic waste classification regulations, as their behavior will be monitored. But some argue the "smartness" may be going too far and is an abuse of people's privacy and may pose possible data leak risks.

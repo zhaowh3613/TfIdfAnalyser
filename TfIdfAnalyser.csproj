@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F82EF42-0C53-4C3F-9BC5-FA203529110F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TfIdfAnalyser</RootNamespace>
+    <AssemblyName>TfIdfAnalyser</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JiebaNet.Analyser, Version=0.42.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\jieba.NET.0.42.2\lib\net45\JiebaNet.Analyser.dll</HintPath>
+    </Reference>
+    <Reference Include="JiebaNet.Segmenter, Version=0.42.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\jieba.NET.0.42.2\lib\net45\JiebaNet.Segmenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Analyser.cs" />
+    <Compile Include="Model\Fetcher.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Doc\Articles\chinese.docx" />
+    <None Include="Doc\Articles\english.docx" />
+    <None Include="Doc\Segments\chinese\.DS_Store" />
+    <None Include="Doc\Segments\english\.DS_Store" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Doc\zh-hans.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\char_state_tab.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\pos_prob_emit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\pos_prob_start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\pos_prob_trans.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\prob_emit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\prob_trans.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cn_synonym.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\dict.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\idf.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\stopwords.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Doc\Segments\chinese\011.txt" />
+    <Resource Include="Doc\Segments\chinese\012.txt" />
+    <Resource Include="Doc\Segments\chinese\013.txt" />
+    <Resource Include="Doc\Segments\chinese\014.txt" />
+    <Resource Include="Doc\Segments\chinese\015.txt" />
+    <Resource Include="Doc\Segments\chinese\021.txt" />
+    <Resource Include="Doc\Segments\chinese\022.txt" />
+    <Resource Include="Doc\Segments\chinese\023.txt" />
+    <Resource Include="Doc\Segments\chinese\024.txt" />
+    <Resource Include="Doc\Segments\chinese\031.txt" />
+    <Resource Include="Doc\Segments\chinese\032.txt" />
+    <Resource Include="Doc\Segments\chinese\033.txt" />
+    <Resource Include="Doc\Segments\chinese\034.txt" />
+    <Resource Include="Doc\Segments\chinese\041.txt" />
+    <Resource Include="Doc\Segments\chinese\042.txt" />
+    <Resource Include="Doc\Segments\chinese\043.txt" />
+    <Resource Include="Doc\Segments\chinese\044.txt" />
+    <Resource Include="Doc\Segments\chinese\045.txt" />
+    <Resource Include="Doc\Segments\chinese\051.txt" />
+    <Resource Include="Doc\Segments\chinese\052.txt" />
+    <Resource Include="Doc\Segments\chinese\053.txt" />
+    <Resource Include="Doc\Segments\chinese\061.txt" />
+    <Resource Include="Doc\Segments\chinese\062.txt" />
+    <Resource Include="Doc\Segments\chinese\063.txt" />
+    <Resource Include="Doc\Segments\chinese\064.txt" />
+    <Resource Include="Doc\Segments\chinese\065.txt" />
+    <Resource Include="Doc\Segments\chinese\066.txt" />
+    <Resource Include="Doc\Segments\chinese\071.txt" />
+    <Resource Include="Doc\Segments\chinese\072.txt" />
+    <Resource Include="Doc\Segments\chinese\073.txt" />
+    <Resource Include="Doc\Segments\chinese\074.txt" />
+    <Resource Include="Doc\Segments\chinese\075.txt" />
+    <Resource Include="Doc\Segments\chinese\081.txt" />
+    <Resource Include="Doc\Segments\chinese\082.txt" />
+    <Resource Include="Doc\Segments\chinese\083.txt" />
+    <Resource Include="Doc\Segments\chinese\084.txt" />
+    <Resource Include="Doc\Segments\chinese\085.txt" />
+    <Resource Include="Doc\Segments\chinese\091.txt" />
+    <Resource Include="Doc\Segments\chinese\092.txt" />
+    <Resource Include="Doc\Segments\chinese\093.txt" />
+    <Resource Include="Doc\Segments\chinese\094.txt" />
+    <Resource Include="Doc\Segments\chinese\095.txt" />
+    <Resource Include="Doc\Segments\chinese\096.txt" />
+    <Resource Include="Doc\Segments\chinese\101.txt" />
+    <Resource Include="Doc\Segments\chinese\102.txt" />
+    <Resource Include="Doc\Segments\chinese\103.txt" />
+    <Resource Include="Doc\Segments\chinese\104.txt" />
+    <Resource Include="Doc\Segments\chinese\105.txt" />
+    <Resource Include="Doc\Segments\chinese\106.txt" />
+    <Resource Include="Doc\Segments\chinese\111.txt" />
+    <Resource Include="Doc\Segments\chinese\112.txt" />
+    <Resource Include="Doc\Segments\chinese\113.txt" />
+    <Resource Include="Doc\Segments\chinese\114.txt" />
+    <Resource Include="Doc\Segments\chinese\115.txt" />
+    <Resource Include="Doc\Segments\chinese\121.txt" />
+    <Resource Include="Doc\Segments\chinese\122.txt" />
+    <Resource Include="Doc\Segments\chinese\123.txt" />
+    <Resource Include="Doc\Segments\chinese\124.txt" />
+    <Resource Include="Doc\Segments\chinese\125.txt" />
+    <Resource Include="Doc\Segments\chinese\131.txt" />
+    <Resource Include="Doc\Segments\chinese\132.txt" />
+    <Resource Include="Doc\Segments\chinese\133.txt" />
+    <Resource Include="Doc\Segments\chinese\134.txt" />
+    <Resource Include="Doc\Segments\chinese\135.txt" />
+    <Resource Include="Doc\Segments\chinese\141.txt" />
+    <Resource Include="Doc\Segments\chinese\142.txt" />
+    <Resource Include="Doc\Segments\chinese\143.txt" />
+    <Resource Include="Doc\Segments\chinese\144.txt" />
+    <Resource Include="Doc\Segments\chinese\145.txt" />
+    <Resource Include="Doc\Segments\chinese\151.txt" />
+    <Resource Include="Doc\Segments\chinese\152.txt" />
+    <Resource Include="Doc\Segments\chinese\153.txt" />
+    <Resource Include="Doc\Segments\chinese\154.txt" />
+    <Resource Include="Doc\Segments\chinese\155.txt" />
+    <Resource Include="Doc\Segments\chinese\161.txt" />
+    <Resource Include="Doc\Segments\chinese\162.txt" />
+    <Resource Include="Doc\Segments\chinese\163.txt" />
+    <Resource Include="Doc\Segments\chinese\164.txt" />
+    <Resource Include="Doc\Segments\chinese\165.txt" />
+    <Resource Include="Doc\Segments\chinese\166.txt" />
+    <Resource Include="Doc\Segments\chinese\171.txt" />
+    <Resource Include="Doc\Segments\chinese\172.txt" />
+    <Resource Include="Doc\Segments\chinese\173.txt" />
+    <Resource Include="Doc\Segments\chinese\174.txt" />
+    <Resource Include="Doc\Segments\chinese\181.txt" />
+    <Resource Include="Doc\Segments\chinese\182.txt" />
+    <Resource Include="Doc\Segments\chinese\183.txt" />
+    <Resource Include="Doc\Segments\chinese\184.txt" />
+    <Resource Include="Doc\Segments\chinese\185.txt" />
+    <Resource Include="Doc\Segments\chinese\191.txt" />
+    <Resource Include="Doc\Segments\chinese\192.txt" />
+    <Resource Include="Doc\Segments\chinese\193.txt" />
+    <Resource Include="Doc\Segments\chinese\201.txt" />
+    <Resource Include="Doc\Segments\chinese\202.txt" />
+    <Resource Include="Doc\Segments\chinese\203.txt" />
+    <Resource Include="Doc\Segments\chinese\211.txt" />
+    <Resource Include="Doc\Segments\chinese\212.txt" />
+    <Resource Include="Doc\Segments\chinese\213.txt" />
+    <Resource Include="Doc\Segments\chinese\214.txt" />
+    <Resource Include="Doc\Segments\chinese\215.txt" />
+    <Resource Include="Doc\Segments\chinese\221.txt" />
+    <Resource Include="Doc\Segments\chinese\222.txt" />
+    <Resource Include="Doc\Segments\chinese\223.txt" />
+    <Resource Include="Doc\Segments\chinese\224.txt" />
+    <Resource Include="Doc\Segments\chinese\231.txt" />
+    <Resource Include="Doc\Segments\chinese\232.txt" />
+    <Resource Include="Doc\Segments\chinese\233.txt" />
+    <Resource Include="Doc\Segments\chinese\234.txt" />
+    <Resource Include="Doc\Segments\chinese\241.txt" />
+    <Resource Include="Doc\Segments\chinese\242.txt" />
+    <Resource Include="Doc\Segments\chinese\243.txt" />
+    <Resource Include="Doc\Segments\chinese\251.txt" />
+    <Resource Include="Doc\Segments\chinese\252.txt" />
+    <Resource Include="Doc\Segments\chinese\253.txt" />
+    <Resource Include="Doc\Segments\chinese\254.txt" />
+    <Resource Include="Doc\Segments\chinese\261.txt" />
+    <Resource Include="Doc\Segments\chinese\262.txt" />
+    <Resource Include="Doc\Segments\chinese\263.txt" />
+    <Resource Include="Doc\Segments\chinese\264.txt" />
+    <Resource Include="Doc\Segments\chinese\271.txt" />
+    <Resource Include="Doc\Segments\chinese\272.txt" />
+    <Resource Include="Doc\Segments\chinese\273.txt" />
+    <Resource Include="Doc\Segments\chinese\274.txt" />
+    <Resource Include="Doc\Segments\chinese\281.txt" />
+    <Resource Include="Doc\Segments\chinese\282.txt" />
+    <Resource Include="Doc\Segments\chinese\283.txt" />
+    <Resource Include="Doc\Segments\chinese\284.txt" />
+    <Resource Include="Doc\Segments\chinese\285.txt" />
+    <Resource Include="Doc\Segments\chinese\286.txt" />
+    <Resource Include="Doc\Segments\chinese\291.txt" />
+    <Resource Include="Doc\Segments\chinese\292.txt" />
+    <Resource Include="Doc\Segments\chinese\293.txt" />
+    <Resource Include="Doc\Segments\chinese\294.txt" />
+    <Resource Include="Doc\Segments\chinese\301.txt" />
+    <Resource Include="Doc\Segments\chinese\302.txt" />
+    <Resource Include="Doc\Segments\chinese\303.txt" />
+    <Resource Include="Doc\Segments\chinese\304.txt" />
+    <Resource Include="Doc\Segments\chinese\311.txt" />
+    <Resource Include="Doc\Segments\chinese\312.txt" />
+    <Resource Include="Doc\Segments\chinese\313.txt" />
+    <Resource Include="Doc\Segments\chinese\314.txt" />
+    <Resource Include="Doc\Segments\chinese\315.txt" />
+    <Resource Include="Doc\Segments\chinese\316.txt" />
+    <Resource Include="Doc\Segments\chinese\321.txt" />
+    <Resource Include="Doc\Segments\chinese\322.txt" />
+    <Resource Include="Doc\Segments\chinese\323.txt" />
+    <Resource Include="Doc\Segments\chinese\324.txt" />
+    <Resource Include="Doc\Segments\chinese\325.txt" />
+    <Resource Include="Doc\Segments\chinese\331.txt" />
+    <Resource Include="Doc\Segments\chinese\332.txt" />
+    <Resource Include="Doc\Segments\chinese\333.txt" />
+    <Resource Include="Doc\Segments\chinese\334.txt" />
+    <Resource Include="Doc\Segments\chinese\341.txt" />
+    <Resource Include="Doc\Segments\chinese\342.txt" />
+    <Resource Include="Doc\Segments\chinese\343.txt" />
+    <Resource Include="Doc\Segments\chinese\351.txt" />
+    <Resource Include="Doc\Segments\chinese\352.txt" />
+    <Resource Include="Doc\Segments\chinese\353.txt" />
+    <Resource Include="Doc\Segments\chinese\354.txt" />
+    <Resource Include="Doc\Segments\chinese\361.txt" />
+    <Resource Include="Doc\Segments\chinese\362.txt" />
+    <Resource Include="Doc\Segments\chinese\363.txt" />
+    <Resource Include="Doc\Segments\chinese\364.txt" />
+    <Resource Include="Doc\Segments\chinese\365.txt" />
+    <Resource Include="Doc\Segments\chinese\371.txt" />
+    <Resource Include="Doc\Segments\chinese\372.txt" />
+    <Resource Include="Doc\Segments\chinese\373.txt" />
+    <Resource Include="Doc\Segments\chinese\374.txt" />
+    <Resource Include="Doc\Segments\chinese\381.txt" />
+    <Resource Include="Doc\Segments\chinese\382.txt" />
+    <Resource Include="Doc\Segments\chinese\383.txt" />
+    <Resource Include="Doc\Segments\chinese\391.txt" />
+    <Resource Include="Doc\Segments\chinese\392.txt" />
+    <Resource Include="Doc\Segments\chinese\393.txt" />
+    <Resource Include="Doc\Segments\chinese\401.txt" />
+    <Resource Include="Doc\Segments\chinese\402.txt" />
+    <Resource Include="Doc\Segments\chinese\403.txt" />
+    <Resource Include="Doc\Segments\chinese\411.txt" />
+    <Resource Include="Doc\Segments\chinese\412.txt" />
+    <Resource Include="Doc\Segments\chinese\413.txt" />
+    <Resource Include="Doc\Segments\chinese\414.txt" />
+    <Resource Include="Doc\Segments\chinese\421.txt" />
+    <Resource Include="Doc\Segments\chinese\422.txt" />
+    <Resource Include="Doc\Segments\chinese\423.txt" />
+    <Resource Include="Doc\Segments\chinese\424.txt" />
+    <Resource Include="Doc\Segments\chinese\425.txt" />
+    <Resource Include="Doc\Segments\chinese\431.txt" />
+    <Resource Include="Doc\Segments\chinese\432.txt" />
+    <Resource Include="Doc\Segments\chinese\433.txt" />
+    <Resource Include="Doc\Segments\chinese\434.txt" />
+    <Resource Include="Doc\Segments\chinese\435.txt" />
+    <Resource Include="Doc\Segments\chinese\441.txt" />
+    <Resource Include="Doc\Segments\chinese\442.txt" />
+    <Resource Include="Doc\Segments\chinese\443.txt" />
+    <Resource Include="Doc\Segments\chinese\451.txt" />
+    <Resource Include="Doc\Segments\chinese\452.txt" />
+    <Resource Include="Doc\Segments\chinese\453.txt" />
+    <Resource Include="Doc\Segments\chinese\454.txt" />
+    <Resource Include="Doc\Segments\chinese\461.txt" />
+    <Resource Include="Doc\Segments\chinese\462.txt" />
+    <Resource Include="Doc\Segments\chinese\463.txt" />
+    <Resource Include="Doc\Segments\chinese\464.txt" />
+    <Resource Include="Doc\Segments\chinese\465.txt" />
+    <Resource Include="Doc\Segments\chinese\471.txt" />
+    <Resource Include="Doc\Segments\chinese\472.txt" />
+    <Resource Include="Doc\Segments\chinese\473.txt" />
+    <Resource Include="Doc\Segments\chinese\474.txt" />
+    <Resource Include="Doc\Segments\chinese\481.txt" />
+    <Resource Include="Doc\Segments\chinese\482.txt" />
+    <Resource Include="Doc\Segments\chinese\483.txt" />
+    <Resource Include="Doc\Segments\chinese\484.txt" />
+    <Resource Include="Doc\Segments\chinese\491.txt" />
+    <Resource Include="Doc\Segments\chinese\492.txt" />
+    <Resource Include="Doc\Segments\chinese\493.txt" />
+    <Resource Include="Doc\Segments\chinese\494.txt" />
+    <Resource Include="Doc\Segments\chinese\501.txt" />
+    <Resource Include="Doc\Segments\chinese\502.txt" />
+    <Resource Include="Doc\Segments\chinese\503.txt" />
+    <Resource Include="Doc\Segments\chinese\504.txt" />
+    <Resource Include="Doc\Segments\chinese\505.txt" />
+    <Resource Include="Doc\Segments\english\011.txt" />
+    <Resource Include="Doc\Segments\english\012.txt" />
+    <Resource Include="Doc\Segments\english\013.txt" />
+    <Resource Include="Doc\Segments\english\014.txt" />
+    <Resource Include="Doc\Segments\english\015.txt" />
+    <Resource Include="Doc\Segments\english\021.txt" />
+    <Resource Include="Doc\Segments\english\022.txt" />
+    <Resource Include="Doc\Segments\english\023.txt" />
+    <Resource Include="Doc\Segments\english\024.txt" />
+    <Resource Include="Doc\Segments\english\025.txt" />
+    <Resource Include="Doc\Segments\english\026.txt" />
+    <Resource Include="Doc\Segments\english\031.txt" />
+    <Resource Include="Doc\Segments\english\032.txt" />
+    <Resource Include="Doc\Segments\english\033.txt" />
+    <Resource Include="Doc\Segments\english\034.txt" />
+    <Resource Include="Doc\Segments\english\035.txt" />
+    <Resource Include="Doc\Segments\english\041.txt" />
+    <Resource Include="Doc\Segments\english\042.txt" />
+    <Resource Include="Doc\Segments\english\043.txt" />
+    <Resource Include="Doc\Segments\english\044.txt" />
+    <Resource Include="Doc\Segments\english\045.txt" />
+    <Resource Include="Doc\Segments\english\051.txt" />
+    <Resource Include="Doc\Segments\english\052.txt" />
+    <Resource Include="Doc\Segments\english\053.txt" />
+    <Resource Include="Doc\Segments\english\061.txt" />
+    <Resource Include="Doc\Segments\english\062.txt" />
+    <Resource Include="Doc\Segments\english\063.txt" />
+    <Resource Include="Doc\Segments\english\064.txt" />
+    <Resource Include="Doc\Segments\english\071.txt" />
+    <Resource Include="Doc\Segments\english\072.txt" />
+    <Resource Include="Doc\Segments\english\073.txt" />
+    <Resource Include="Doc\Segments\english\074.txt" />
+    <Resource Include="Doc\Segments\english\075.txt" />
+    <Resource Include="Doc\Segments\english\076.txt" />
+    <Resource Include="Doc\Segments\english\081.txt" />
+    <Resource Include="Doc\Segments\english\082.txt" />
+    <Resource Include="Doc\Segments\english\083.txt" />
+    <Resource Include="Doc\Segments\english\091.txt" />
+    <Resource Include="Doc\Segments\english\092.txt" />
+    <Resource Include="Doc\Segments\english\093.txt" />
+    <Resource Include="Doc\Segments\english\094.txt" />
+    <Resource Include="Doc\Segments\english\095.txt" />
+    <Resource Include="Doc\Segments\english\101.txt" />
+    <Resource Include="Doc\Segments\english\102.txt" />
+    <Resource Include="Doc\Segments\english\103.txt" />
+    <Resource Include="Doc\Segments\english\104.txt" />
+    <Resource Include="Doc\Segments\english\105.txt" />
+    <Resource Include="Doc\Segments\english\111.txt" />
+    <Resource Include="Doc\Segments\english\112.txt" />
+    <Resource Include="Doc\Segments\english\113.txt" />
+    <Resource Include="Doc\Segments\english\114.txt" />
+    <Resource Include="Doc\Segments\english\121.txt" />
+    <Resource Include="Doc\Segments\english\122.txt" />
+    <Resource Include="Doc\Segments\english\123.txt" />
+    <Resource Include="Doc\Segments\english\124.txt" />
+    <Resource Include="Doc\Segments\english\125.txt" />
+    <Resource Include="Doc\Segments\english\126.txt" />
+    <Resource Include="Doc\Segments\english\131.txt" />
+    <Resource Include="Doc\Segments\english\132.txt" />
+    <Resource Include="Doc\Segments\english\133.txt" />
+    <Resource Include="Doc\Segments\english\141.txt" />
+    <Resource Include="Doc\Segments\english\142.txt" />
+    <Resource Include="Doc\Segments\english\143.txt" />
+    <Resource Include="Doc\Segments\english\151.txt" />
+    <Resource Include="Doc\Segments\english\152.txt" />
+    <Resource Include="Doc\Segments\english\153.txt" />
+    <Resource Include="Doc\Segments\english\154.txt" />
+    <Resource Include="Doc\Segments\english\161.txt" />
+    <Resource Include="Doc\Segments\english\162.txt" />
+    <Resource Include="Doc\Segments\english\163.txt" />
+    <Resource Include="Doc\Segments\english\171.txt" />
+    <Resource Include="Doc\Segments\english\172.txt" />
+    <Resource Include="Doc\Segments\english\173.txt" />
+    <Resource Include="Doc\Segments\english\181.txt" />
+    <Resource Include="Doc\Segments\english\182.txt" />
+    <Resource Include="Doc\Segments\english\183.txt" />
+    <Resource Include="Doc\Segments\english\184.txt" />
+    <Resource Include="Doc\Segments\english\185.txt" />
+    <Resource Include="Doc\Segments\english\186.txt" />
+    <Resource Include="Doc\Segments\english\191.txt" />
+    <Resource Include="Doc\Segments\english\192.txt" />
+    <Resource Include="Doc\Segments\english\193.txt" />
+    <Resource Include="Doc\Segments\english\194.txt" />
+    <Resource Include="Doc\Segments\english\201.txt" />
+    <Resource Include="Doc\Segments\english\202.txt" />
+    <Resource Include="Doc\Segments\english\203.txt" />
+    <Resource Include="Doc\Segments\english\204.txt" />
+    <Resource Include="Doc\Segments\english\205.txt" />
+    <Resource Include="Doc\Segments\english\211.txt" />
+    <Resource Include="Doc\Segments\english\212.txt" />
+    <Resource Include="Doc\Segments\english\213.txt" />
+    <Resource Include="Doc\Segments\english\214.txt" />
+    <Resource Include="Doc\Segments\english\221.txt" />
+    <Resource Include="Doc\Segments\english\222.txt" />
+    <Resource Include="Doc\Segments\english\223.txt" />
+    <Resource Include="Doc\Segments\english\231.txt" />
+    <Resource Include="Doc\Segments\english\232.txt" />
+    <Resource Include="Doc\Segments\english\233.txt" />
+    <Resource Include="Doc\Segments\english\234.txt" />
+    <Resource Include="Doc\Segments\english\241.txt" />
+    <Resource Include="Doc\Segments\english\242.txt" />
+    <Resource Include="Doc\Segments\english\243.txt" />
+    <Resource Include="Doc\Segments\english\244.txt" />
+    <Resource Include="Doc\Segments\english\245.txt" />
+    <Resource Include="Doc\Segments\english\251.txt" />
+    <Resource Include="Doc\Segments\english\252.txt" />
+    <Resource Include="Doc\Segments\english\253.txt" />
+    <Resource Include="Doc\Segments\english\254.txt" />
+    <Resource Include="Doc\Segments\english\255.txt" />
+    <Resource Include="Doc\Segments\english\261.txt" />
+    <Resource Include="Doc\Segments\english\262.txt" />
+    <Resource Include="Doc\Segments\english\263.txt" />
+    <Resource Include="Doc\Segments\english\264.txt" />
+    <Resource Include="Doc\Segments\english\265.txt" />
+    <Resource Include="Doc\Segments\english\271.txt" />
+    <Resource Include="Doc\Segments\english\272.txt" />
+    <Resource Include="Doc\Segments\english\273.txt" />
+    <Resource Include="Doc\Segments\english\274.txt" />
+    <Resource Include="Doc\Segments\english\281.txt" />
+    <Resource Include="Doc\Segments\english\282.txt" />
+    <Resource Include="Doc\Segments\english\283.txt" />
+    <Resource Include="Doc\Segments\english\284.txt" />
+    <Resource Include="Doc\Segments\english\285.txt" />
+    <Resource Include="Doc\Segments\english\291.txt" />
+    <Resource Include="Doc\Segments\english\292.txt" />
+    <Resource Include="Doc\Segments\english\293.txt" />
+    <Resource Include="Doc\Segments\english\294.txt" />
+    <Resource Include="Doc\Segments\english\301.txt" />
+    <Resource Include="Doc\Segments\english\302.txt" />
+    <Resource Include="Doc\Segments\english\303.txt" />
+    <Resource Include="Doc\Segments\english\304.txt" />
+    <Resource Include="Doc\Segments\english\311.txt" />
+    <Resource Include="Doc\Segments\english\312.txt" />
+    <Resource Include="Doc\Segments\english\313.txt" />
+    <Resource Include="Doc\Segments\english\314.txt" />
+    <Resource Include="Doc\Segments\english\321.txt" />
+    <Resource Include="Doc\Segments\english\322.txt" />
+    <Resource Include="Doc\Segments\english\323.txt" />
+    <Resource Include="Doc\Segments\english\324.txt" />
+    <Resource Include="Doc\Segments\english\331.txt" />
+    <Resource Include="Doc\Segments\english\332.txt" />
+    <Resource Include="Doc\Segments\english\333.txt" />
+    <Resource Include="Doc\Segments\english\334.txt" />
+    <Resource Include="Doc\Segments\english\341.txt" />
+    <Resource Include="Doc\Segments\english\342.txt" />
+    <Resource Include="Doc\Segments\english\343.txt" />
+    <Resource Include="Doc\Segments\english\344.txt" />
+    <Resource Include="Doc\Segments\english\351.txt" />
+    <Resource Include="Doc\Segments\english\352.txt" />
+    <Resource Include="Doc\Segments\english\353.txt" />
+    <Resource Include="Doc\Segments\english\354.txt" />
+    <Resource Include="Doc\Segments\english\361.txt" />
+    <Resource Include="Doc\Segments\english\362.txt" />
+    <Resource Include="Doc\Segments\english\363.txt" />
+    <Resource Include="Doc\Segments\english\364.txt" />
+    <Resource Include="Doc\Segments\english\371.txt" />
+    <Resource Include="Doc\Segments\english\372.txt" />
+    <Resource Include="Doc\Segments\english\373.txt" />
+    <Resource Include="Doc\Segments\english\374.txt" />
+    <Resource Include="Doc\Segments\english\381.txt" />
+    <Resource Include="Doc\Segments\english\382.txt" />
+    <Resource Include="Doc\Segments\english\383.txt" />
+    <Resource Include="Doc\Segments\english\391.txt" />
+    <Resource Include="Doc\Segments\english\392.txt" />
+    <Resource Include="Doc\Segments\english\393.txt" />
+    <Resource Include="Doc\Segments\english\401.txt" />
+    <Resource Include="Doc\Segments\english\402.txt" />
+    <Resource Include="Doc\Segments\english\403.txt" />
+    <Resource Include="Doc\Segments\english\411.txt" />
+    <Resource Include="Doc\Segments\english\412.txt" />
+    <Resource Include="Doc\Segments\english\413.txt" />
+    <Resource Include="Doc\Segments\english\414.txt" />
+    <Resource Include="Doc\Segments\english\421.txt" />
+    <Resource Include="Doc\Segments\english\422.txt" />
+    <Resource Include="Doc\Segments\english\423.txt" />
+    <Resource Include="Doc\Segments\english\424.txt" />
+    <Resource Include="Doc\Segments\english\431.txt" />
+    <Resource Include="Doc\Segments\english\432.txt" />
+    <Resource Include="Doc\Segments\english\433.txt" />
+    <Resource Include="Doc\Segments\english\434.txt" />
+    <Resource Include="Doc\Segments\english\441.txt" />
+    <Resource Include="Doc\Segments\english\442.txt" />
+    <Resource Include="Doc\Segments\english\443.txt" />
+    <Resource Include="Doc\Segments\english\444.txt" />
+    <Resource Include="Doc\Segments\english\451.txt" />
+    <Resource Include="Doc\Segments\english\452.txt" />
+    <Resource Include="Doc\Segments\english\453.txt" />
+    <Resource Include="Doc\Segments\english\454.txt" />
+    <Resource Include="Doc\Segments\english\461.txt" />
+    <Resource Include="Doc\Segments\english\462.txt" />
+    <Resource Include="Doc\Segments\english\463.txt" />
+    <Resource Include="Doc\Segments\english\464.txt" />
+    <Resource Include="Doc\Segments\english\471.txt" />
+    <Resource Include="Doc\Segments\english\472.txt" />
+    <Resource Include="Doc\Segments\english\473.txt" />
+    <Resource Include="Doc\Segments\english\474.txt" />
+    <Resource Include="Doc\Segments\english\481.txt" />
+    <Resource Include="Doc\Segments\english\482.txt" />
+    <Resource Include="Doc\Segments\english\483.txt" />
+    <Resource Include="Doc\Segments\english\491.txt" />
+    <Resource Include="Doc\Segments\english\492.txt" />
+    <Resource Include="Doc\Segments\english\493.txt" />
+    <Resource Include="Doc\Segments\english\501.txt" />
+    <Resource Include="Doc\Segments\english\502.txt" />
+    <Resource Include="Doc\Segments\english\503.txt" />
+    <Resource Include="Doc\Segments\english\504.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

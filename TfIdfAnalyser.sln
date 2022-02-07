@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfIdfAnalyser", "TfIdfAnalyser.csproj", "{4F82EF42-0C53-4C3F-9BC5-FA203529110F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD-IDFAnalyserConsoleApp", "..\TD-IDFAnalyserConsoleApp\TD-IDFAnalyserConsoleApp.csproj", "{252F0A01-3D58-48A4-8D1E-B5BB4437D7BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F82EF42-0C53-4C3F-9BC5-FA203529110F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F82EF42-0C53-4C3F-9BC5-FA203529110F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F82EF42-0C53-4C3F-9BC5-FA203529110F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F82EF42-0C53-4C3F-9BC5-FA203529110F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{252F0A01-3D58-48A4-8D1E-B5BB4437D7BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252F0A01-3D58-48A4-8D1E-B5BB4437D7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252F0A01-3D58-48A4-8D1E-B5BB4437D7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252F0A01-3D58-48A4-8D1E-B5BB4437D7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {497CFD08-6294-4418-9B3B-FBCA1DD9A53A}
+	EndGlobalSection
+EndGlobal
